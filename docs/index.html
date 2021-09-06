@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <style>
+        /* .textbox {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width:200px
+ 
+        } */
+
+        body {
+            height: 100%;
+            width: 100%
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <textarea id="links" style="position:fixed;height:100vh;width:100vmax;font-size:16px" autofocus
+        placeholder="paste imgBB links here"></textarea>
+
+    <button id="download" type="button" style="position:fixed;right:0;width:200px;height:50px">download</button>
+
+    <p style="position:fixed;top:60px;right:0px;width:194px;height:55px;font-size:16px;font-family:arial">links separated by <a href = "https://en.wikipedia.org/wiki/Newline">newlines</a> </p>
+
+
+</body>
+
+
+<script type="text/javascript">
+
+    function main(urls) {
+
+        urls = urls.split("\n")
+
+        console.log(urls)
+
+        for (let url of urls) {
+            let urlkey = url.match(/[^/]+$/)
+
+            fetch("https://corsproxytest123.herokuapp.com/"+url).then((res) => {
+                res.text().then(async (doc) => {
+
+                    let root = doc.indexOf("i.ibb.co")
+                    let jpg = doc.indexOf(".jpg")
+                    let imgUrl;
+                    let imgType = "jpg";
+
+                    imgUrl = "https://" + doc.substring(root, jpg + 4)
+
+                    // these are the formats all formats get converted to in the end
+
+                    let types = ["jpg", "png", "gif", "webp"]
+
+                    for (type of types) {
+                        imgUrl = "https://" + doc.substring(doc.lastIndexOf("i.ibb.co"), doc.lastIndexOf("." + type) + type.length + 1).replace(/%2F/g, "/")
+
+                        // 129 characters is the current limit to url sizes
+                        // if the matched url is greater than 129, then it is likely we got an incorrect match
+
+                        if (imgUrl.length > 129) {
+                            continue
+                        }
+                        imgType = type
+                        break
+                    }
+                    // the url is still more than 129 characters long, so tell the user we can't download this one
+
+                    if (imgUrl.length > 129) {
+                        console.log(`cannot download img at url: ${url}`)
+                        return;
+                    }
+
+
+
+                    
+                    let res = await fetch("https://corsproxytest123.herokuapp.com/"+imgUrl)
+
+                    const blob = await res.blob();
+                    const url = await URL.createObjectURL(blob);
+
+                    const a = document.createElement("a");
+                    a.href = url
+                    a.download = urlkey
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+
+
+                })
+            })
+        }
+    }
+
+
+    const links = document.getElementById("links")
+
+    document.getElementById("download").addEventListener("click", () => {
+        main(links.value)
+    })
+
+
+// module.exports = main
+
+</script>
+
+</html>
