@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!--
-test
-test
--->
 
 <head>
     <meta charset="UTF-8">
@@ -51,13 +47,17 @@ test
         console.log(urls)
 
         for (let url of urls) {
-            let urlkey = url.match(/[^/]+$/)
+            // let urlkey = url.match(/[^/]+$/)
 
             fetch("https://corsproxytest123.herokuapp.com/"+url).then((res) => {
                 res.text().then(async (doc) => {
 
                     let root = doc.indexOf("i.ibb.co")
                     let jpg = doc.indexOf(".jpg")
+
+                    let name = doc.match(/data-text="image-title">(.*)</)[1]
+
+
                     let imgUrl;
                     let imgType = "jpg";
 
@@ -96,7 +96,7 @@ test
 
                     const a = document.createElement("a");
                     a.href = url
-                    a.download = urlkey
+                    a.download = name // urlkey
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);
