@@ -50,18 +50,27 @@
 
         urls = urls.split("\n")
 
-        console.log(urls)
-
-        for (let url of urls) {
-            // let urlkey = url.match(/[^/]+$/)
-
-            fetch("https://corsproxytest123.herokuapp.com/"+url).then((res) => {
+        
+        function handleResult(res) {
                 res.text().then(async (doc) => {
 
                     let root = doc.indexOf("i.ibb.co")
                     let jpg = doc.indexOf(".jpg")
 
-                    let name = doc.match(/data-text="image-title">(.*)</)[1]
+                    let name;
+                    try{
+                        name = doc.match(/<title>(.*)<\/title>/)[1]
+                        name = name.substring(0, name.length-8)      
+                    } catch(e){
+                        console.log('error while reading file name:', e)
+                        try{
+                            name = doc.match(/data-text="image-title">(.*)</)[1]
+                        } catch(e){
+                            console.log('this file was not meant to retain its name', e)
+                        }
+                    }
+                    
+                    name = name || 'file'
 
 
                     let imgUrl;
@@ -109,7 +118,12 @@
 
 
                 })
-            })
+            }
+        
+        for (let url of urls) {
+            // let urlkey = url.match(/[^/]+$/)
+            
+            fetch("https://api.codetabs.com/v1/proxy/?quest="+url).then(handleResult)
         }
     }
 
