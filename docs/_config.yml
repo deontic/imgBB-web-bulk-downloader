@@ -1,7 +1,7 @@
 
 title: imgBB bulk image downloader
 description: >- 
- imgBB bulk downloader - a tool to easily download images from imgbb.com in bulk. Simply paste your links and click the download button to mass download images.
+ imgBB bulk downloader - a tool to easily bulk download images from imgbb. Paste your links and click download.
 baseurl: "" 
 url: "https://deontic.github.io/imgBB-web-bulk-downloader" 
 github_username:  deontic
