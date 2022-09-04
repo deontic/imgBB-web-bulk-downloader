@@ -1,2 +1,3 @@
-{% seo %} 
+plugins:
+  - jekyll-seo-tag
 baseurl: /
