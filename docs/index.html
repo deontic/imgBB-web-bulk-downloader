@@ -54,7 +54,7 @@
 
         
         function handleResult(res) {
-                res.text().then(async (doc) => {
+                res.text().then((doc) => {
 
                     let root = doc.indexOf("i.ibb.co")
                     let jpg = doc.indexOf(".jpg")
@@ -105,18 +105,31 @@
 
 
 
+                    fetch(imgUrl).then((res)=>{
+                      res.blob().then((blob)=>{
+                             URL.createObjectURL(blob).then((url)=>{
+                                const a = document.createElement("a");
+                                a.href = url
+                                a.download = name // urlkey
+                                document.body.appendChild(a);
+                                a.click();
+                                document.body.removeChild(a);
+                             })
+                          
+                      })  
+                    })
                     
-                    let res = await fetch(imgUrl)
+//                     let res = await fetch(imgUrl)
 
-                    const blob = await res.blob();
-                    const url = await URL.createObjectURL(blob);
+//                     const blob = await res.blob();
+//                     const url = await URL.createObjectURL(blob);
 
-                    const a = document.createElement("a");
-                    a.href = url
-                    a.download = name // urlkey
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
+//                     const a = document.createElement("a");
+//                     a.href = url
+//                     a.download = name // urlkey
+//                     document.body.appendChild(a);
+//                     a.click();
+//                     document.body.removeChild(a);
 
 
                 })
@@ -132,8 +145,12 @@
 
     const links = document.getElementById("links")
 
+    let isDownloading;
     document.getElementById("download").addEventListener("click", () => {
+        if (isDownloading) {return alert('already downloading images, please be patient')}
+        isDownloading = true
         main(links.value)
+        isDownloading = false;
     })
 
 
