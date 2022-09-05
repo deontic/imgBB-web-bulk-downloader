@@ -10,7 +10,7 @@ The last and quickest to use of the 3 imgBB utilities I've created to bulk downl
 Simply :
 
 * visit the imgBB upload page
-* copy the urls
+* click the button to copy the urls
 * paste them in the textbox on https://deontic.github.io/imgBB-web-bulk-downloader
 * press the download button
 
