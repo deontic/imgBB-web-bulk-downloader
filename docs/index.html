@@ -124,8 +124,8 @@
         
         for (let url of urls) {
             // let urlkey = url.match(/[^/]+$/)
-            
-            fetch("https://api.codetabs.com/v1/proxy/?quest="+url).then(handleResult)
+            // "https://api.codetabs.com/v1/proxy/?quest="
+            fetch(url).then(handleResult)
         }
     }
 
