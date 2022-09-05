@@ -106,7 +106,7 @@
 
 
                     
-                    let res = await fetch("https://corsproxytest123.herokuapp.com/"+imgUrl)
+                    let res = await fetch(imgUrl)
 
                     const blob = await res.blob();
                     const url = await URL.createObjectURL(blob);
@@ -125,7 +125,7 @@
         for (let url of urls) {
             // let urlkey = url.match(/[^/]+$/)
             // "https://api.codetabs.com/v1/proxy/?quest="
-            fetch(url).then(handleResult)
+            fetch(url, { mode: 'cors'}).then(handleResult)
         }
     }
 
