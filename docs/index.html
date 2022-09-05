@@ -125,7 +125,7 @@
         for (let url of urls) {
             // let urlkey = url.match(/[^/]+$/)
             // "https://api.codetabs.com/v1/proxy/?quest="
-            fetch(url, { mode: 'cors'}).then(handleResult)
+            fetch(`https://api.codetabs.com/v1/proxy/?quest=${url}`).then(handleResult)
         }
     }
 
