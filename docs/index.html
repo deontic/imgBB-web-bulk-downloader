@@ -50,7 +50,7 @@
 
     function main(urls) {
 
-        urls = urls.split("\n")
+        urls = urls.split("\n").filter((url)=>url.trim())
 
         
         function handleResult(res) {
@@ -117,39 +117,24 @@
                       })
                           
                     })
-                    
-//                     let res = await fetch(imgUrl)
-
-//                     const blob = await res.blob();
-//                     const url = await URL.createObjectURL(blob);
-
-//                     const a = document.createElement("a");
-//                     a.href = url
-//                     a.download = name // urlkey
-//                     document.body.appendChild(a);
-//                     a.click();
-//                     document.body.removeChild(a);
-
-
                 })
             }
         
         for (let url of urls) {
-            // let urlkey = url.match(/[^/]+$/)
-            // "https://api.codetabs.com/v1/proxy/?quest="
-            fetch(`https://api.codetabs.com/v1/proxy/?quest=${url}`).then(handleResult)
+            try {
+                url = new URL(url) 
+                // "https://api.codetabs.com/v1/proxy/?quest="
+                fetch(`https://api.codetabs.com/v1/proxy/?quest=${url}`).then(handleResult)
+            } catch(e) {
+            }
         }
     }
 
 
     const links = document.getElementById("links")
 
-    let isDownloading;
     document.getElementById("download").addEventListener("click", () => {
-        if (isDownloading) {return alert('already downloading images, please be patient')}
-        isDownloading = true
         main(links.value)
-        isDownloading = false;
     })
 
 
