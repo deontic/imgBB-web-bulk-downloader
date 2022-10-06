@@ -1,7 +1,9 @@
+###  Note: you can also use https://deontic.github.io/chevereto-bulk-downloader to download images from other websites that use the [Chevereto](https://chevereto.com/) image hosting software
+
 # imgBB bulk downloader 
 <img src = "https://user-images.githubusercontent.com/68165727/131923011-65df82b2-6520-4228-81dc-6079d4fb6cde.jpg" alt = "img bb" width=280 >
 
- _download imageBB images en masse_
+ _download imageBB images in bulk_
  
 
  
