@@ -3,7 +3,7 @@
 
  _download imageBB images in bulk_
  
- > **Note**: you can also use https://deontic.github.io/chevereto-bulk-downloader to download images from other websites that use the [Chevereto image hosting software](https://chevereto.com/)
+ > **Note**: you can also use https://deontic.github.io/chevereto-bulk-downloader to download images from other websites that use the Chevereto image hosting software ([chevereto.com](https://chevereto.com/)).
 
  
 The last and quickest to use of the 3 imgBB utilities I've created to bulk download images from the site.
